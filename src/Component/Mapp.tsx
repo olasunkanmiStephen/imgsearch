@@ -1,5 +1,5 @@
-import { useState, FormEvent, ChangeEvent } from 'react';
-import '../Component/Mapp.css'
+import React, { useState, FormEvent, ChangeEvent } from 'react';
+import '../Component/Mapp.css';
 import Axios from 'axios';
 
 interface UnsplashImage {
@@ -31,7 +31,7 @@ function App() {
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setGeneratedImages([]); // Clear existing images when a new search is made
+    setGeneratedImages([]);
     setPage(1);
     fetchImages();
   };
@@ -58,9 +58,11 @@ function App() {
           <img key={image.id} src={image.urls.small} alt={`Generated ${image.id}`} />
         ))}
       </div>
-      <button id="show-more-btn" onClick={fetchImages}>
-        Show more
-      </button>
+      {generatedImages.length > 0 && ( // Conditionally render the "Show more" button
+        <button id="show-more-btn" onClick={fetchImages}>
+          Show more
+        </button>
+      )}
     </div>
   );
 }
